@@ -3,7 +3,11 @@
     - install
     - upgrade-charm
     - config-changed
+{% if '5' in apt_repository %}
+  apt_key: url={{ apt_key_url }} state=present id={{gpg_key_id}} validate_certs=no
+{% else %}
   apt_key: url={{ apt_key_url }} state=present id={{gpg_key_id}}
+{% endif %}
   when: apt_key_url != ""
 
 - name: Add apt archive.
@@ -16,13 +20,22 @@
     state: present
   when: apt_repository != ""
 
+- name: Add java apt archive.
+  tags:
+    - install
+    - upgrade-charm
+    - config-changed
+  apt_repository:
+    repo: "ppa:openjdk-r/ppa"
+    state: present
+
 - name: Install dependent packages.
   apt: pkg={{ item }} state=latest update_cache=yes
   tags:
     - install
     - upgrade-charm
   with_items:
-    - openjdk-7-jre-headless
+    - openjdk-8-jre-headless
     - ufw
 
 - name: Check for local elasticsearch.deb in payload.

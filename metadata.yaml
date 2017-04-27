@@ -6,6 +6,8 @@ description: |
   Read more at http://www.elasticsearch.org
 tags:
   - misc
+series:
+  - trusty
 subordinate: false
 peers:
   peer:
