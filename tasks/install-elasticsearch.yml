@@ -3,11 +3,7 @@
     - install
     - upgrade-charm
     - config-changed
-{% if '5' in apt_repository %}
   apt_key: url={{ apt_key_url }} state=present id={{gpg_key_id}} validate_certs=no
-{% else %}
-  apt_key: url={{ apt_key_url }} state=present id={{gpg_key_id}}
-{% endif %}
   when: apt_key_url != ""
 
 - name: Add apt archive.
