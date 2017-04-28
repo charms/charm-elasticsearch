@@ -9,6 +9,7 @@ tags:
 series:
   - trusty
   - xenial
+  - yakkety
 subordinate: false
 peers:
   peer:

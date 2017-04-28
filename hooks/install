@@ -2,10 +2,10 @@
 # Wrapper to deal with older Ubuntu versions that don't have py3 installed
 # by default.
 
-declare -a DEPS=('apt' 'netaddr' 'netifaces' 'pip' 'yaml' 'dnspython')
+declare -a DEPS=('python3')
 
 check_and_install() {
-    pkg="${1}-${2}"
+    pkg="${1}"
     if ! dpkg -s ${pkg} 2>&1 > /dev/null; then
         apt-get -y install ${pkg}
     fi
@@ -14,7 +14,7 @@ check_and_install() {
 PYTHON="python3"
 
 for dep in ${DEPS[@]}; do
-    check_and_install ${PYTHON} ${dep}
+    check_and_install ${dep}
 done
 
 exec ./hooks/install.real
