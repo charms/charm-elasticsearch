@@ -42,7 +42,7 @@ the instance itself and any clients that join. Similarly the node-to-node
 communication port (9300) is only available to other units in the elasticsearch
 service. You can change this explicitly with:
 
-    juju set elasticsearch firewall_enabled=false
+    juju config elasticsearch firewall_enabled=false
 
 See the separate HACKING.md for information about deploying this charm
 from a local repository.
@@ -67,6 +67,25 @@ with the other units in the cluster (via the peer-relation-joined
 hook), after which ElasticSearch handles the rest.
 
 # Configuration
+
+## Elasticsearch 5.x
+This charm fully supports Elasticsearch 5.x!
+To deploy ES 5.x add the following to your config prior
+to deploying the charm.
+
+Example config for Elasticsearch 5.x
+```yaml
+# es-config.yaml
+
+apt-repository: "deb https://artifacts.elastic.co/packages/5.x/apt stable main"
+apt-key-url: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+gpg-key-id: "D88E42B4"
+
+```
+Then reference the config when deploying this charm.
+```bash
+juju deploy elasticsearch --config es-config.yaml
+```
 
 ## Downloading ElasticSearch
 
