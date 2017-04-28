@@ -8,6 +8,7 @@ tags:
   - misc
 series:
   - trusty
+  - xenial
 subordinate: false
 peers:
   peer:
