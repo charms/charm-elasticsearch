@@ -19,7 +19,7 @@
     - include: tasks/peer-relations.yml
     - include: tasks/setup-ufw.yml
       tags:
-        - install
+        - install.real
         - upgrade-charm
         - config-changed
         - client-relation-joined

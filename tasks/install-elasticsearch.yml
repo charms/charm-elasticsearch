@@ -1,6 +1,6 @@
 - name: Add apt key.
   tags:
-    - install
+    - install.real
     - upgrade-charm
     - config-changed
   apt_key: url={{ apt_key_url }} state=present id={{gpg_key_id}} validate_certs=no
@@ -8,7 +8,7 @@
 
 - name: Add apt archive.
   tags:
-    - install
+    - install.real
     - upgrade-charm
     - config-changed
   apt_repository:
@@ -18,7 +18,7 @@
 
 - name: Add java apt archive.
   tags:
-    - install
+    - install.real
     - upgrade-charm
     - config-changed
   apt_repository:
@@ -28,7 +28,7 @@
 - name: Install dependent packages.
   apt: pkg={{ item }} state=latest update_cache=yes
   tags:
-    - install
+    - install.real
     - upgrade-charm
   with_items:
     - openjdk-8-jre-headless
@@ -38,19 +38,19 @@
   stat: path=files/elasticsearch.deb
   register: stat_elasticsearch_deb
   tags:
-    - install
+    - install.real
     - upgrade-charm
 
 - name: Install elasticsearch from repository
   apt: pkg=elasticsearch state=latest update_cache=yes
   tags:
-    - install
+    - install.real
     - upgrade-charm
   when: stat_elasticsearch_deb.stat.exists == false and apt_repository != ""
 
 - name: Install ElasticSearch from payload
   command: dpkg -i {{ charm_dir }}/files/elasticsearch.deb
   tags:
-    - install
+    - install.real
     - upgrade-charm
   when: stat_elasticsearch_deb.stat.exists == true
