@@ -2,7 +2,7 @@
 # Wrapper to deal with older Ubuntu versions that don't have py3 installed
 # by default.
 
-declare -a DEPS=('python3')
+declare -a DEPS=('python3' 'python3-dnspython' 'python3-netifaces')
 
 check_and_install() {
     pkg="${1}"
