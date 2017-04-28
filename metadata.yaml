@@ -10,7 +10,6 @@ series:
   - trusty
   - xenial
   - yakkety
-  - zesty
 subordinate: false
 peers:
   peer:
