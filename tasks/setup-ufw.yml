@@ -27,7 +27,7 @@
   when: firewall_enabled
 
 - name: Open the firewall for all clients
-  ufw: rule=allow src="{{lookup('dig', item['address'])}}" port=9200 proto=tcp
+  ufw: rule=allow src="{{lookup('dig', item.get('address', ''))}}" port=9200 proto=tcp
   with_items: "{{relations['client']}}"
   when: firewall_enabled
 
@@ -36,7 +36,7 @@
   when: firewall_enabled
 
 - name: Open the firewall for all peers
-  ufw: rule=allow src="{{lookup('dig', item['address'])}}" port=9300 proto=tcp
+  ufw: rule=allow src="{{lookup('dig', item.get('address', ''))}}" port=9300 proto=tcp
   with_items: "{{relations['peer']}}"
   when: firewall_enabled
 
