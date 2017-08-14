@@ -27,8 +27,8 @@
   when: firewall_enabled
 
 - name: Open the firewall for all clients
-  ufw: rule=allow src={{ lookup('dns', item['private-address']) }} port=9200 proto=tcp
-  with_items: relations["client"]
+  ufw: rule=allow src="{{lookup('dig', item.get('address', ''))}}" port=9200 proto=tcp
+  with_items: "{{relations['client']}}"
   when: firewall_enabled
 
 - name: Deny all other requests on 9200
@@ -36,8 +36,8 @@
   when: firewall_enabled
 
 - name: Open the firewall for all peers
-  ufw: rule=allow src={{ lookup('dns', item['private-address']) }} port=9300 proto=tcp
-  with_items: relations["peer"]
+  ufw: rule=allow src="{{lookup('dig', item.get('address', ''))}}" port=9300 proto=tcp
+  with_items: "{{relations['peer']}}"
   when: firewall_enabled
 
 # Only deny incoming on 9300 once the unit is part of a cluster.

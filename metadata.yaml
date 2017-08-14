@@ -6,6 +6,10 @@ description: |
   Read more at http://www.elasticsearch.org
 tags:
   - misc
+series:
+  - trusty
+  - xenial
+  - yakkety
 subordinate: false
 peers:
   peer:

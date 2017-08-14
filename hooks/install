@@ -1,1 +1,18 @@
-hooks.py
+#!/bin/bash
+# Wrapper to deal with older Ubuntu versions that don't have py3 installed
+# by default.
+
+declare -a DEPS=('python3' 'python3-dnspython' 'python3-netifaces' 'python-dnspython')
+
+check_and_install() {
+    pkg="${1}"
+    if ! dpkg -s ${pkg} 2>&1 > /dev/null; then
+        apt-get -y install ${pkg}
+    fi
+}
+
+for dep in ${DEPS[@]}; do
+    check_and_install ${dep}
+done
+
+exec ./hooks/install.real

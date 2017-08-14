@@ -56,26 +56,26 @@ class HooksTestCase(unittest.TestCase):
         self.addCleanup(patcher.stop)
 
     def test_installs_ansible_support(self):
-        hooks.execute(['install'])
+        hooks.execute(['install.real'])
 
         ansible = self.mock_ansible
         ansible.install_ansible_support.assert_called_once_with(
             from_ppa=False)
 
     def test_applies_install_playbook(self):
-        hooks.execute(['install'])
+        hooks.execute(['install.real'])
 
         self.assertEqual([
-            mock.call('playbook.yaml', tags=['install']),
+            mock.call('playbook.yaml', tags=['install.real']),
         ], self.mock_ansible.apply_playbook.call_args_list)
 
     def test_executes_preinstall(self):
-        hooks.execute(['install'])
+        hooks.execute(['install.real'])
 
         self.mock_preinstall.assert_called_once_with()
 
     def test_copys_backported_ansible_modules(self):
-        hooks.execute(['install'])
+        hooks.execute(['install.real'])
 
         self.mock_rsync.assert_called_once_with(
             'ansible_module_backports',

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Setup hooks for the elasticsearch charm."""
 
 import sys
@@ -34,8 +34,8 @@ hooks = charmhelpers.contrib.ansible.AnsibleHooks(
     ])
 
 
-@hooks.hook('install', 'upgrade-charm')
-def install():
+@hooks.hook('install.real', 'upgrade-charm')
+def install_real():
     """Install ansible before running the tasks tagged with 'install'."""
     # Allow charm users to run preinstall setup.
     charmhelpers.payload.execd.execd_preinstall()
